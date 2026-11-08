@@ -1,0 +1,264 @@
+name: CanglanSurvival
+version: 1.0.0
+main: com.canglan.survival.CanglanSurvival
+api-version: '1.21'
+authors: [沧蓝工坊]
+description: 沧蓝工坊 · 整合生存服务端核心 —— 把生存服常用的 20 个功能模块整合进一个插件包，全部中文，服主可在游戏内用 /cl 随时启用或禁用任意模块，并可给单个玩家单独授权。
+website: https://github.com/canglan
+load: POSTWORLD
+
+commands:
+  canglan:
+    description: 沧蓝整合包主指令（模块开关、玩家授权）
+    usage: /cl 帮助
+    aliases: [cl, cyan]
+  perm:
+    description: 权限系统（权限组、前缀、节点）
+    usage: /perm 帮助
+  tab:
+    description: TAB 列表
+    usage: /tab
+  notice:
+    description: 信息公告栏
+    usage: /notice
+  sb:
+    description: 计分板
+    usage: /sb
+    aliases: [scoreboard]
+  money:
+    description: 查看金币余额
+    usage: /money [玩家]
+    aliases: [bal]
+  pay:
+    description: 转账
+    usage: /pay <玩家> <金额>
+  baltop:
+    description: 财富排行榜
+    usage: /baltop [页]
+  eco:
+    description: 管理员经济操作
+    usage: /eco give|take|set <玩家> <金额>
+  shop:
+    description: 系统商店
+    usage: /shop
+  claim:
+    description: 领地保护
+    usage: /claim
+  unclaim:
+    description: 取消当前领地
+    usage: /unclaim
+  warp:
+    description: 传送到地标
+    usage: /warp <名称>
+  warps:
+    description: 地标列表
+    usage: /warps
+  setwarp:
+    description: 创建地标（管理员）
+    usage: /setwarp <名称>
+  delwarp:
+    description: 删除地标（管理员）
+    usage: /delwarp <名称>
+  rtp:
+    description: 随机传送
+    usage: /rtp
+  home:
+    description: 回到家园
+    usage: /home [名称]
+  sethome:
+    description: 设置家园
+    usage: /sethome [名称]
+  delhome:
+    description: 删除家园
+    usage: /delhome <名称>
+  homes:
+    description: 家园列表
+    usage: /homes
+  tpa:
+    description: 请求传送到对方
+    usage: /tpa <玩家>
+  tpahere:
+    description: 请求对方传送到你
+    usage: /tpahere <玩家>
+  tpaccept:
+    description: 接受传送请求
+    usage: /tpaccept [玩家]
+  tpdeny:
+    description: 拒绝传送请求
+    usage: /tpdeny [玩家]
+  chat:
+    description: 聊天管理
+    usage: /chat
+  report:
+    description: 举报玩家
+    usage: /report <玩家> <原因>
+  reports:
+    description: 查看举报记录（管理员）
+    usage: /reports
+  warn:
+    description: 警告玩家（管理员）
+    usage: /warn <玩家> <原因>
+  warnings:
+    description: 查看警告记录（管理员）
+    usage: /warnings <玩家>
+  kick:
+    description: 踢出玩家（管理员）
+    usage: /kick <玩家> [原因]
+  ban:
+    description: 封禁玩家（管理员）
+    usage: /ban <玩家> [时长] [原因]
+  unban:
+    description: 解封玩家（管理员）
+    usage: /unban <玩家>
+  mute:
+    description: 禁言玩家（管理员）
+    usage: /mute <玩家> [时长] [原因]
+  unmute:
+    description: 解除禁言（管理员）
+    usage: /unmute <玩家>
+  register:
+    description: 注册账号
+    usage: /register <密码> <确认密码>
+  login:
+    description: 登录账号
+    usage: /login <密码>
+  changepassword:
+    description: 修改密码
+    usage: /changepassword <旧密码> <新密码>
+  welcome:
+    description: 服务器规则与引导
+    usage: /welcome
+  signin:
+    description: 每日签到
+    usage: /signin
+  top:
+    description: 排行榜
+    usage: /top [金币|击杀|死亡|在线|挖掘|放置]
+  stats:
+    description: 玩家统计
+    usage: /stats [玩家]
+    aliases: [mystats]
+  monitor:
+    description: 服务器监控
+    usage: /monitor
+  menu:
+    description: 钟表菜单（功能菜单）
+    usage: /menu
+    aliases: [menus]
+  servername:
+    description: 修改服务器名称（服主）
+    usage: /servername "新名字"
+    aliases: [sn]
+
+permissions:
+  canglan.admin:
+    description: 沧蓝整合包全部管理权限（启用/禁用模块、给玩家授权）
+    default: op
+  canglan.module.perm:
+    description: 使用「权限系统」模块
+    default: op
+  canglan.module.tab:
+    description: 使用「TAB 列表」模块
+    default: true
+  canglan.module.notice:
+    description: 使用「信息公告栏」模块
+    default: true
+  canglan.module.scoreboard:
+    description: 使用「计分板」模块
+    default: true
+  canglan.module.economy:
+    description: 使用「经济系统」模块
+    default: true
+  canglan.module.shop:
+    description: 使用「系统商店」模块
+    default: true
+  canglan.module.claims:
+    description: 使用「领地保护」模块
+    default: true
+  canglan.module.warps:
+    description: 使用「地标传送」模块
+    default: true
+  canglan.module.rtp:
+    description: 使用「随机传送」模块
+    default: true
+  canglan.module.homes:
+    description: 使用「家园」模块
+    default: true
+  canglan.module.tpa:
+    description: 使用「传送请求」模块
+    default: true
+  canglan.module.chat:
+    description: 使用「聊天管理」模块
+    default: true
+  canglan.module.report:
+    description: 使用「玩家举报」模块
+    default: true
+  canglan.module.punish:
+    description: 使用「处罚管理」模块
+    default: op
+  canglan.module.auth:
+    description: 使用「登录验证」模块
+    default: true
+  canglan.module.welcome:
+    description: 使用「欢迎引导」模块
+    default: true
+  canglan.module.signin:
+    description: 使用「每日签到」模块
+    default: true
+  canglan.module.top:
+    description: 使用「排行榜」模块
+    default: true
+  canglan.module.stats:
+    description: 使用「玩家统计」模块
+    default: true
+  canglan.module.menu:
+    description: 使用钟表菜单
+    default: true
+  canglan.module.monitor:
+    description: 使用「服务器监控」模块
+    default: op
+  canglan.economy.admin:
+    description: 管理员经济操作（/eco、查他人余额）
+    default: op
+  canglan.chat.admin:
+    description: 聊天管理（禁言、清屏）
+    default: op
+  canglan.chat.bypass:
+    description: 跳过聊天冷却与违禁词限制
+    default: op
+  canglan.report.admin:
+    description: 查看与清空举报记录
+    default: op
+  canglan.report.notify:
+    description: 接收玩家举报提醒
+    default: op
+  canglan.punish.admin:
+    description: 处罚管理（警告、封禁、踢出）
+    default: op
+  canglan.stats.others:
+    description: 查看其他玩家的统计数据
+    default: op
+  canglan.monitor.notify:
+    description: 接收低 TPS 监控提醒
+    default: op
+  canglan.auth.bypass:
+    description: 跳过登录验证（管理员/机器人）
+    default: op
+  canglan.claim.bypass:
+    description: 无视领地保护
+    default: op
+  canglan.claim.limit.5:
+    description: 领地数量上限 5 块
+    default: false
+  canglan.claim.limit.10:
+    description: 领地数量上限 10 块
+    default: false
+  canglan.home.unlimited:
+    description: 家园数量无限制
+    default: op
+  canglan.home.limit.5:
+    description: 家园数量上限 5 个
+    default: false
+  canglan.rtp.bypass:
+    description: 跳过随机传送冷却
+    default: op

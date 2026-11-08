@@ -1,0 +1,212 @@
+# ============================================================
+#  沧蓝工坊 · 整合生存服务端核心  v1.0.0
+#  适配：Paper 1.21.11    作者：沧蓝工坊
+#
+#  说明：
+#   1. 本插件把 20 个生存服常用功能整合在一起，默认全部开启。
+#   2. 服主可以在游戏里用 /cl 列表 查看模块，用 /cl 禁用 <模块> 关闭某个功能。
+#   3. 模块的全局开关保存在 modules.yml，玩家单独授权保存在 players.yml。
+#   4. 所有文字都可以用 & 颜色代码修改。
+# ============================================================
+
+# 全局消息前缀
+prefix: "&b&l沧蓝工坊 &7» &f"
+
+# 服务器名称：显示在 TAB 列表、计分板、功能菜单标题等地方
+# 游戏内可以直接改：/servername "新名字"   （支持 & 颜色代码，可带空格）
+# 恢复默认：/servername reset
+server-name: "&b&l沧蓝工坊 &f生存服"
+
+# 自动保存间隔（秒）
+auto-save-seconds: 300
+
+# 是否在玩家进服时发送一句提示
+login-message:
+  enabled: false
+  text: "&7欢迎回到服务器。"
+
+# 是否统计挖掘/放置方块数量
+stats:
+  count-blocks: true
+
+# ---------------- 02 · TAB 列表 ----------------
+tab:
+  header:
+    - "{server}"
+    - "&7在线 &f{online}&7/&f{max} &8| &7延迟 &f{ping}ms &8| &7TPS &f{tps}"
+    - "&8&m------------------------"
+  footer:
+    - "&8&m------------------------"
+    - "&7金币 &6{money} &8| &7权限组 &f{group}"
+    - "&7输入 &f/cl 我的 &7查看可用功能"
+  # 玩家列表里显示的名字格式
+  player-list-format: "{prefix}{player}"
+
+# ---------------- 03 · 信息公告栏 ----------------
+notice:
+  bossbar-enabled: true
+  bossbar-interval: 12
+  chat-enabled: true
+  chat-interval: 300
+  join-tip: "&b[沧蓝工坊] &f输入 &b/notice &f查看本服公告。"
+  default:
+    - "&e欢迎来到本服，祝你玩得开心！"
+    - "&e输入 &f/help &e或 &f/cl my &e查看你能用的功能。"
+    - "&e文明游戏，禁止刷屏、外挂与诈骗。"
+
+# ---------------- 04 · 计分板 ----------------
+scoreboard:
+  enabled: true
+  # 标题支持 {server} 占位符（取 server-name）
+  title: "{server}"
+  lines:
+    - "&7在线：&f{online}"
+    - "&7金币：&6{money}"
+    - "&7击杀：&f{kills} &8| &7死亡：&f{deaths}"
+    - "&7延迟：&f{ping}ms"
+    - "&7TPS：&f{tps}"
+    - "&7在线时长：&f{playtime}"
+    - "&8&m----------"
+
+# ---------------- 05 · 经济系统 ----------------
+economy:
+  # 新玩家初始金币
+  starting-balance: 100.0
+  # 货币名称
+  currency: "金币"
+  # 转账手续费比例，0 表示不收
+  transfer-fee: 0.0
+
+# ---------------- 07 · 领地保护（立体领地，最大 64×64×64）----------------
+claims:
+  # 每人默认可圈几块地（可用权限 canglan.claim.limit.N 提高）
+  default-limit: 1
+  # 单块领地单边最大格数（X / Z 方向）
+  max-size: 64
+  # 单块领地最大高度（Y 方向）
+  max-height: 64
+  # 单块领地最大体积（方块数），64×64×64 = 262144
+  max-blocks: 262144
+  # 领地内是否允许 PvP
+  pvp-in-claims: false
+  # 禁止圈地的世界
+  blocked-worlds: []
+  # 保护哪些行为
+  protection:
+    buckets: true        # 倒液体 / 取液体
+    explosions: true     # 爆炸不破坏领地内方块
+    containers: true     # 箱子、熔炉等容器
+
+# ---------------- 08 · 地标传送 ----------------
+warps:
+  # 传送冷却（秒）
+  cooldown: 5
+  # 是否每个地标单独设置权限（canglan.warp.<地标名>）
+  per-warp-permission: false
+
+# ---------------- 09 · 随机传送 ----------------
+rtp:
+  # 冷却（秒）
+  cooldown: 30
+  # 距离出生点的最小/最大距离（方块）
+  min-radius: 200
+  max-radius: 3000
+  # 允许随机传送的世界，留空表示玩家所在世界
+  worlds: []
+
+# ---------------- 10 · 家园 ----------------
+homes:
+  default-limit: 1
+  # 禁止设置家园的世界
+  blocked-worlds: []
+  # 权限上限提示：可用 /perm 组 玩家 添加权限 canglan.home.limit.5 提升上限
+
+# ---------------- 11 · 传送请求 ----------------
+tpa:
+  # 请求冷却（秒）
+  cooldown: 15
+  # 请求有效时间（秒）
+  expire-seconds: 60
+
+# ---------------- 12 · 聊天管理 ----------------
+chat:
+  # 聊天格式变量：{group} {prefix} {player} {world} {message}
+  format: "{prefix}&f{player} &8» &f{message}"
+  join-message: "&8[&a+&8] &f{player} &7加入了服务器"
+  quit-message: "&8[&c-&8] &f{player} &7离开了服务器"
+  # 两条消息之间的冷却（秒），0 为不限制
+  cooldown-seconds: 0
+  # 违禁词（包含即拦截）
+  banned-words:
+    - "傻逼"
+    - "外挂出售"
+    - "加群领"
+
+# ---------------- 14 · 处罚管理 ----------------
+punish:
+  # 累计多少次警告自动踢出
+  auto-kick-warnings: 3
+
+# ---------------- 15 · 登录验证 ----------------
+auth:
+  # 未登录超时踢出（秒）
+  timeout-seconds: 60
+  # 密码最短长度
+  min-password-length: 4
+  # 如果服务器已经用了别的登录插件，可把本模块用 /cl 禁用
+
+# ---------------- 16 · 欢迎引导 ----------------
+welcome:
+  first-join-broadcast:
+    - "&b&l[沧蓝工坊] &f欢迎新玩家 &b{player} &f来到服务器！"
+    - "&7大家多多关照，输入 &f/welcome &7查看玩法引导。"
+  new-player-tips:
+    - "&e这里是生存服，你可以自由建造、挖矿、打怪。"
+    - "&e先用 &f/shop &e买点工具，再去 &f/rtp &e找个地方安家吧！"
+    - "&e记得每天 &f/signin &e签到领金币。"
+  kit-enabled: true
+  kit:
+    - "STONE_PICKAXE:1"
+    - "STONE_AXE:1"
+    - "STONE_SHOVEL:1"
+    - "BREAD:8"
+    - "TORCH:16"
+  rules:
+    - "&b1. &f禁止使用外挂、宏、连点器等作弊工具。"
+    - "&b2. &f禁止刷屏、辱骂、诈骗与他人交易。"
+    - "&b3. &f禁止破坏他人建筑与领地。"
+    - "&b4. &f发现违规请用 &f/report &f举报，管理员会尽快处理。"
+    - "&b5. &f祝你在本服玩得开心！"
+
+# ---------------- 17 · 每日签到 ----------------
+signin:
+  base-reward: 50.0
+  streak-bonus: 10.0
+  max-streak-bonus: 200.0
+
+# ---------------- 20 · 服务器监控 ----------------
+monitor:
+  # 检查间隔（秒）
+  check-interval: 60
+  # TPS 低于多少时提醒管理员
+  tps-alert-threshold: 15.0
+  # 两次提醒的最小间隔（秒）
+  alert-cooldown: 300
+
+# ---------------- 21 · 钟表菜单 ----------------
+menu:
+  # 进服是否自动发一个「功能菜单」钟表
+  give-on-join: true
+  # 钟表放在快捷栏第几格（0-8）
+  slot: 8
+  # 钟表名字
+  item-name: "&b&l功能菜单"
+  # 钟表说明
+  item-lore:
+    - "&7右键打开功能菜单"
+    - "&7也可以输入 &f/menu"
+    - "&8沧蓝工坊"
+
+# ---------------- 内置权限系统的默认组 ----------------
+permissions:
+  default-group-permissions: []
